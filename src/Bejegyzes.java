@@ -12,7 +12,7 @@ public class Bejegyzes {
         this.tartalom = tartalom;
         this.likeok = 0;
         this.letrejott = LocalDateTime.now();
-        this.szerkesztve = LocalDateTime.now();
+        this.szerkesztve = letrejott;
     }
 
     public String getSzerzo() {
@@ -47,7 +47,7 @@ public class Bejegyzes {
     @Override
     public String toString() {
         return szerzo + '-' + likeok + '-' + letrejott + '\n' +
-                (letrejott != szerkesztve ? ("Szerkesztve: "+ szerkesztve + '\n') : "" ) +
-                tartalom;
+                (!letrejott.equals(szerkesztve) ? ("Szerkesztve: "+ szerkesztve + '\n') : "" ) +
+                tartalom + '\n';
     }
 }
