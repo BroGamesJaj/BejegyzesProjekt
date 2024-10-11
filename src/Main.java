@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -49,5 +44,53 @@ public class Main {
         bejegyzes_lista.get(1).setTartalom(sc.nextLine().strip());
         // 2.f
         bejegyzes_lista.forEach(System.out::println);
+
+        // 3.a
+        int maxl = 0;
+        for (Bejegyzes e : bejegyzes_lista) {
+            if (e.getLikeok() > maxl) {
+                maxl = e.getLikeok();
+            }
+        }
+        System.out.printf("A legnépszerűbb bejegyzésnek %d likeja van!\n",maxl);
+
+        // 3.b
+        if(maxl> 35){
+            System.out.println("Van olyan bejegyzés, aminek több mint 35 likeja van!");
+        }else{
+            System.out.println("Nincs olyan bejegyzés, aminek több mint 35 likeja van!");
+        }
+
+        // 3.c
+        int count = 0;
+        for (Bejegyzes e : bejegyzes_lista) {
+            if (e.getLikeok() < 15) {
+                count++;
+            }
+        }
+
+        System.out.printf((count == 0 ? "Nincs " : "%d ")+"olyan bejegyzés, aminek kevesebb mint 15 likeja van!\n",count);
+
+        // 3.d
+        List<Bejegyzes> sorted = bejegyzes_lista;
+
+        sorted.sort((o1, o2) -> o2.getLikeok() - o1.getLikeok());
+        sorted.forEach(System.out::println);
+        // 3.d+
+        try {
+            File myObj = new File("bejegyzesek_rendezett.txt");
+            myObj.createNewFile();
+            FileWriter fw = new FileWriter("bejegyzesek_rendezett.txt");
+            sorted.forEach(e -> {
+                try {
+                    fw.write(e.getSzerzo()+";"+e.getTartalom()+'\n');
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+        } catch (IOException e) {
+            System.out.println("Hiba a fájl létrehozásában");
+        }
+
     }
 }

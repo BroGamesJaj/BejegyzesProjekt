@@ -46,7 +46,7 @@ public class Bejegyzes {
 
     @Override
     public String toString() {
-        return szerzo + '-' + likeok + '-' + letrejott + '\n' +
+        return szerzo + " - " + likeok + " - " + letrejott + '\n' +
                 (!letrejott.equals(szerkesztve) ? ("Szerkesztve: "+ szerkesztve + '\n') : "" ) +
                 tartalom + '\n';
     }
